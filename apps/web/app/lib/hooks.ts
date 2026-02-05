@@ -10,7 +10,7 @@ export const useChatHook = (model: string): ChatProps => {
     const { messages, sendMessage, status, } = useChat({
         transport: new DefaultChatTransport({
             api: BACKEND_BASE_URL,
-            body: { model, slug: "ai-for-everyone-how-generative-ai-will-change-b2c-interfaces-as-we-know-them" },
+            body: { model, slug: "3d-personas-for-complete-customers-insights" },
         })
     })
 

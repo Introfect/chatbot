@@ -3,13 +3,15 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "react-router build",
-		"cf-typegen": "wrangler types",
-		"deploy": "pnpm run build && wrangler deploy",
-		"dev": "react-router dev",
-		"postinstall": "npm run cf-typegen",
-		"preview": "pnpm run build && vite preview",
-		"typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
+	"build": "CLOUDFLARE_ENV=dev react-router build",
+    "build:staging": "npm run cf-typegen && react-router typegen && tsc -b && CLOUDFLARE_ENV=staging react-router build",
+    "build:production": "CLOUDFLARE_ENV=production react-router build",
+    "cf-typegen": "wrangler types",
+    "deploy": "wrangler deploy",
+    "dev": "CLOUDFLARE_ENV=dev react-router dev",
+    "preview": "dotenv -e .env.production -- pnpm run build && vite preview",
+    "typecheck": "npm run cf-typegen && react-router typegen && tsc -b",
+    "api:generate": "openapi-typescript http://localhost:8787/doc -o ./app/lib/api/types.ts"
 	},
 	"dependencies": {
 		"@ai-sdk/react": "^3.0.59",
