@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Widget Test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .note {
+      background: #f0f9ff;
+      border-left: 4px solid #0ea5e9;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .note strong {
+      color: #0369a1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 Chatbot Widget Test Page</h1>
+    <p>This is a test page to verify the chatbot widget functionality.</p>
+    
+    <div class="note">
+      <strong>Widget Features:</strong>
+      <ul>
+        <li>Circular button in bottom-right corner</li>
+        <li>Click to expand to full-screen chat interface</li>
+        <li>Close button to collapse back</li>
+        <li>Isolated styles using Shadow DOM</li>
+      </ul>
+    </div>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    <h2>Test Instructions</h2>
+    <ol>
+      <li>Look for the circular chat button in the bottom-right corner</li>
+      <li>Click the button to open the chat widget</li>
+      <li>Verify the chat interface appears in full-screen</li>
+      <li>Click the close button (X) in the top-right to collapse</li>
+      <li>Verify the widget returns to the circular button state</li>
+    </ol>
+  </div>
+
+  <!-- Load the widget -->
+  <link rel="stylesheet" href="../dist/widget/chatbot-widget.css">
+  <script src="../dist/widget/chatbot-widget.js"></script>
+  
+  <!-- Instantiate the widget -->
+  <chatbot-widget 
+    button-text="Chat with us"
+    api-url="https://api.example.com"
+  ></chatbot-widget>
+</body>
+</html>
