@@ -1,11 +1,8 @@
-import { convertToModelMessages, smoothStream, streamText, UIMessage, tool, stepCountIs } from "ai";
+import { convertToModelMessages, smoothStream, streamText, UIMessage, stepCountIs } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { ERROR_MESSAGES } from "../../constants/errorCodes";
-import { SYSTEM_PROMPT } from "../../constants/systemPrompt";
 import { getHono } from "../utils/hono";
 import blogSearchToolBuilder from "../features/blogSearchTool";
-import z from "zod";
-import parseMD from "parse-md";
 import { getSystemPrompt } from "../utils/utils";
 
 export const chatRoute = getHono()

@@ -4,21 +4,13 @@ import { useState } from "react"
 import type { ChatProps } from "./types"
 import { BACKEND_BASE_URL } from "./constants"
 
-export interface UseChatHookOptions {
-    backendUrl?: string;
-    slug?: string;
-}
-
-export const useChatHook = (model: string, options?: UseChatHookOptions): ChatProps => {
+export const useChatHook = (model: string): ChatProps => {
     const [input, setInput] = useState("")
-
-    const api = options?.backendUrl || BACKEND_BASE_URL;
-    const slug = options?.slug || "3d-personas-for-complete-customers-insights";
 
     const { messages, sendMessage, status, } = useChat({
         transport: new DefaultChatTransport({
-            api,
-            body: { model, slug },
+            api: BACKEND_BASE_URL,
+            body: { model, slug: "3d-personas-for-complete-customers-insights" },
         })
     })
 
