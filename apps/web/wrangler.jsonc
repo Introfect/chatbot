@@ -15,6 +15,23 @@
 	},
 	"observability": {
 		"enabled": true
+	},
+	"env": {
+		"dev": {
+			"vars": {
+				"VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare (dev)"
+			}
+		},
+		"staging": {
+			"vars": {
+				"VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare (staging)"
+			}
+		},
+		"production": {
+			"vars": {
+				"VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare (production)"
+			}
+		}
 	}
 	/**
 	 * Smart Placement
