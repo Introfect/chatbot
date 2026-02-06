@@ -13,3 +13,9 @@ interface ViteTypeOptions {
   interface ImportMeta {
     readonly env: ImportMetaEnv;
   }
+
+  // CSS inline imports
+  declare module "*.css?inline" {
+    const content: string;
+    export default content;
+  }
