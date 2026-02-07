@@ -52,7 +52,7 @@ export default function ChatWrapper({
           </div>
         )}
       </ConversationContent>
-      <ConversationScrollButton />
+      <ConversationScrollButton className=" bg-black bottom-[150px] md:bottom-[150px]" />
     </>
   );
 }

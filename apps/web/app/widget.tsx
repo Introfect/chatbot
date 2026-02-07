@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import WidgetButton from "~/components/widget/WidgetButton";
 import WidgetOverlay from "~/components/widget/WidgetOverlay";
-import { useChatHook } from "~/lib/hooks";
+import { useChatHook } from "~/lib/hooks.client";
 import { MODELS } from "~/lib/constants";
 // Import CSS as inline string so we can inject it into Shadow DOM
 import widgetStyles from "./widget.css?inline";
@@ -34,6 +34,8 @@ function ChatbotWidgetApp({ buttonText }: { buttonText?: string }) {
 class ChatbotWidget extends HTMLElement {
     private root: ReturnType<typeof createRoot> | null = null;
     private _shadowRoot: ShadowRoot;
+    private currentPathname: string = "";
+    private urlCheckInterval: number | null = null;
 
     constructor() {
         super();
@@ -69,9 +71,59 @@ class ChatbotWidget extends HTMLElement {
                 <ChatbotWidgetApp buttonText={buttonText} />
             </React.StrictMode>
         );
+
+        // Track current pathname and detect URL changes
+        this.currentPathname = window.location.pathname;
+        this.urlCheckInterval = window.setInterval(() => {
+            if (window.location.pathname !== this.currentPathname) {
+                this.handleUrlChange();
+            }
+        }, 500);
+    }
+
+    private handleUrlChange() {
+        this.currentPathname = window.location.pathname;
+
+        // Unmount existing React app
+        if (this.root) {
+            this.root.unmount();
+            this.root = null;
+        }
+
+        // Clear shadow DOM
+        this._shadowRoot.innerHTML = "";
+
+        // Re-inject styles
+        const style = document.createElement("style");
+        style.textContent = widgetStyles;
+        this._shadowRoot.appendChild(style);
+
+        // Recreate container
+        const container = document.createElement("div");
+        container.id = "chatbot-widget-root";
+        container.style.cssText = "width:100%;height:100%;";
+        this._shadowRoot.appendChild(container);
+
+        // Get attributes
+        const buttonText = this.getAttribute("button-text") || "Chat with us";
+
+        // Remount React app with fresh state
+        this.root = createRoot(container);
+        this.root.render(
+            <React.StrictMode>
+                <ChatbotWidgetApp buttonText={buttonText} />
+            </React.StrictMode>
+        );
     }
 
     disconnectedCallback() {
+        // Clear URL check interval
+        if (this.urlCheckInterval !== null) {
+            clearInterval(this.urlCheckInterval);
+            this.urlCheckInterval = null;
+        }
+
+        // Unmount React app
         if (this.root) {
             this.root.unmount();
             this.root = null;

@@ -4,12 +4,15 @@ import InputWrappper from "~/components/chat/InputWrappper";
 import SeedToScaleLogo from "~/components/svg/SeedToScaleLogo";
 import type { ChatProps } from "~/lib/types";
 import { Conversation } from "~/components/ai-elements/conversation";
+import { useKeyboardOffset } from "~/lib/hooks.client";
 
 interface WidgetOverlayProps extends ChatProps {
     onClose: () => void;
 }
 
 export default function WidgetOverlay({ onClose, ...chatProps }: WidgetOverlayProps) {
+    const keyboardOffset = useKeyboardOffset();
+
     return (
         <div className="widget-overlay fixed inset-0 z-9998 bg-background animate-fade-in">
             {/* Navbar with Close Button */}
@@ -34,7 +37,10 @@ export default function WidgetOverlay({ onClose, ...chatProps }: WidgetOverlayPr
                     <div className="flex flex-col overflow-hidden no-scrollbar size-full">
                         <Conversation className="flex-1 min-h-0 h-full bg-background pt-16">
                             <ChatWrapper {...chatProps} />
-                            <div className="w-full bg-background fixed bottom-0 left-0 right-0">
+                            <div
+                                className="w-full bg-background fixed left-0 right-0 transition-[bottom] duration-100"
+                                style={{ bottom: `${keyboardOffset}px` }}
+                            >
                                 <InputWrappper
                                     {...chatProps}
                                 />
