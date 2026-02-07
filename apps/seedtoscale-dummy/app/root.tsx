@@ -36,9 +36,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        <script src="http://chatbot.aayushmanpratap333.workers.dev/chatbot-widget.js" defer>
+        <script src="https://chatbot.aayushmanpratap333.workers.dev/chatbot-widget.js" defer>
         </script>
-        <div dangerouslySetInnerHTML={{ __html: '<chatbot-widget api-url="http://chatbot-backend.oyeaayushaman.dev/api/v1/chat" button-text="SEEDTOSCALE AI"></chatbot-widget>' }} />
+        <div dangerouslySetInnerHTML={{ __html: '<chatbot-widget api-url="https://chatbot-backend.oyeaayushaman.dev/api/v1/chat" button-text="SEEDTOSCALE AI"></chatbot-widget>' }} />
       </body>
     </html>
   );
