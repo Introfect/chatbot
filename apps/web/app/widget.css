@@ -19,11 +19,13 @@
 :host {
   display: block;
   font-family: "Poppins", sans-serif;
+  color: var(--foreground);
 }
 
 /* Root container */
 #chatbot-widget-root {
   font-family: "Poppins", sans-serif;
+  color: var(--foreground);
 }
 
 /* CSS Variables - same as main app */

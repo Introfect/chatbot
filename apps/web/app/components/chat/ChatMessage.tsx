@@ -19,10 +19,10 @@ export default function ChatMessage({ showLoader, message, isLast }: ChatMessage
     const showMessageLoader = isLast && showLoader && message.role === "assistant" && messageTextIsEmpty;
 
     return (
-        <Message className={cn("max-w-4xl mx-auto px-4 mb-6", isUser ? "items-end" : "items-start")} from={message.role}>
-            <div className={cn("flex items-start gap-4 w-full", isUser ? "flex-row-reverse" : "flex-row")}>
+        <Message className={cn("max-w-4xl mx-auto px-3 sm:px-4 mb-4 sm:mb-6", isUser ? "items-end" : "items-start")} from={message.role}>
+            <div className={cn("flex items-start gap-3 sm:gap-4 w-full", isUser ? "flex-row-reverse" : "flex-row")}>
                 {showMessageLoader ? (
-                    <Lottie animationData={starMagicAnimation} loop={true} className="size-8 shrink-0 mt-1" />
+                    <Lottie animationData={starMagicAnimation} loop={true} className="size-7 sm:size-8 shrink-0 mt-1" />
                 ) : (
                     <AiLogo isUser={isUser} messageTextIsEmpty={messageTextIsEmpty} />
                 )}

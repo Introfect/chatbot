@@ -6,5 +6,6 @@ export type ChatProps = {
   input: string;
   setInput: (input: string) => void;
   sendMessageFromHook: (message: string) => void;
+  error?: Error;
   stickToBottom?: any;
 };

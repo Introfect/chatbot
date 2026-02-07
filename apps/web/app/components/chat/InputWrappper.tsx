@@ -1,4 +1,4 @@
-import { useStickToBottom } from "use-stick-to-bottom";
+import { useStickToBottomContext } from "use-stick-to-bottom";
 import {
   PromptInput,
   PromptInputSubmit,
@@ -12,18 +12,18 @@ export default function InputWrappper({
   input,
   setInput,
 }: ChatProps) {
-  const sticktoBottom = useStickToBottom();
+  const { scrollToBottom } = useStickToBottomContext();
   function handleSubmit(message: string) {
-    sticktoBottom.scrollToBottom();
     if (input.trim() === "") return;
     setInput("");
     sendMessageFromHook(message);
+    scrollToBottom();
   }
 
   const isDisabled = status === "submitted" || status === "streaming";
 
   return (
-    <div className="mb-8 max-w-3xl w-full mx-auto px-4">
+    <div className="mb-8 pb-safe max-w-3xl w-full mx-auto px-4">
       <PromptInput
         className="rounded-2xl bg-white border-none shadow-xl ring-1 ring-black/5"
         onSubmit={(message, event) => handleSubmit(message.text)}
@@ -33,7 +33,7 @@ export default function InputWrappper({
           value={input}
           placeholder="Say something..."
           onChange={(e) => setInput(e.currentTarget.value)}
-          className="w-full pl-6 pr-16 py-6 min-h-16 text-lg"
+          className="w-full pl-6 pr-16 py-6 min-h-16 text-base sm:text-lg"
         />
         <PromptInputSubmit
           disabled={isDisabled}

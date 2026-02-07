@@ -18,7 +18,7 @@ export const Conversation = ({
   return (
     <StickToBottom
       className={cn(
-        "relative flex-1 overflow-y-auto no-scrollbar",
+        "relative flex-1",
         className,
       )}
       initial="smooth"
@@ -37,13 +37,18 @@ export const ConversationContent = ({
   className,
   ...props
 }: ConversationContentProps) => {
-  const { contentRef } = useStickToBottomContext();
+  const { contentRef, scrollRef } = useStickToBottomContext();
   return (
     <div
-      ref={contentRef}
-      className={cn("flex flex-col  gap-8 p-4 no-scrollbar", className)}
-      {...props}
-    />
+      ref={scrollRef}
+      className="size-full overflow-y-auto no-scrollbar"
+    >
+      <div
+        ref={contentRef}
+        className={cn("flex flex-col gap-8 p-4", className)}
+        {...props}
+      />
+    </div>
   );
 };
 
@@ -99,7 +104,7 @@ export const ConversationScrollButton = ({
     !isAtBottom && (
       <Button
         className={cn(
-          "absolute bottom-[50px] z-20 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted",
+          "absolute bottom-[120px] sm:bottom-[100px] z-20 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted",
           className
         )}
         onClick={handleScrollToBottom}

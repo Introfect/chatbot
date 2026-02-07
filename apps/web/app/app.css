@@ -140,3 +140,8 @@ body {
     display: none;
   }
 }
+
+/* Safe area inset support for notched devices */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}

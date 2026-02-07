@@ -17,8 +17,8 @@ export default defineConfig({
       formats: ["iife"],
       fileName: () => "chatbot-widget.js",
     },
-    outDir: "dist/widget",
-    emptyOutDir: true,
+    outDir: "public",
+    emptyOutDir: false,
     cssCodeSplit: false,
     rollupOptions: {
       output: {
