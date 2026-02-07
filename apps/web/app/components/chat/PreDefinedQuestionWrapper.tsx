@@ -3,7 +3,7 @@ import PredefinedQuestionButton from "./PredefinedQuestionButton";
 
 export default function PreDefinedQuestionWrapper({ handleAskQuestion }: { handleAskQuestion: (question: string) => void }) {
     return (
-        <div className="mt-6 mx-auto flex flex-wrap items-center text-balance justify-center gap-2">
+        <div className="hidden mt-6 mx-auto md:flex flex-wrap items-center text-balance justify-center gap-2">
             <p className="text-sm text-gray-500">Try</p>
             {EmptyStateQuestions.map((question, index) => (
                 <>
