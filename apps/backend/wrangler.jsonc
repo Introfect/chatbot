@@ -7,7 +7,7 @@
     "nodejs_compat"
   ],
   "vars": {
-    "GOOGLE_AI_API_KEY": "AIzaSyBf9opobA0-wfMQaL8BQKAaLn-vGIVeeWc",
+    "GOOGLE_AI_API_KEY": "AIzaSyAkSISZ07Rb6ylrso2vN5QwPtds5AHINqs",
     "FRONTEND_APP_URL": "http://localhost:5173"
   },
   // "kv_namespaces": [

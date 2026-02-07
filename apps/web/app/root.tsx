@@ -32,7 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="size-full" >
+      <body className="size-full overflow-hidden" >
         {children}
         <ScrollRestoration />
         <Scripts />

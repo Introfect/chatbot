@@ -1,6 +1,5 @@
 import type { ChatProps } from "~/lib/types";
 import {
-  Conversation,
   ConversationContent,
   ConversationScrollButton,
 } from "../ai-elements/conversation";
@@ -28,11 +27,8 @@ export default function ChatWrapper({
 
 
   return (
-    <Conversation
-      className="size-full h-full bg-background"
-    >
-
-      <ConversationContent className="px-0 pt-24 pb-48">
+    <>
+      <ConversationContent className="px-0 pt-24 pb-48 sm:pb-56">
         {messages.map((message, index) => (
           <div key={message.id}>
             <ChatMessage
@@ -46,6 +42,6 @@ export default function ChatWrapper({
         {showStandaloneLoader && <div className="max-w-4xl mx-auto px-4 w-full"><CustomLoader /></div>}
       </ConversationContent>
       <ConversationScrollButton />
-    </Conversation>
+    </>
   );
 }
