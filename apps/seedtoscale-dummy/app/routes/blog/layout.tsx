@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useParams } from "react-router";
 
-const BLOG_PAGES = ["example1", "example2", "example3", "example4", "example5"];
+const BLOG_PAGES = ["a-career-in-venture-capital", "defining-your-market", "our-investment-in-slintel", "our-investment-in-uni", "saas-playbook-sales"];
 
 export default function BlogLayout() {
     const navigate = useNavigate();

@@ -1,11 +1,11 @@
 import { redirect, useParams } from "react-router";
 import type { Route } from "./+types/blog";
 
-const ALLOWED_SLUGS = ["example1", "example2", "example3", "example4", "example5"];
+const ALLOWED_SLUGS = ["a-career-in-venture-capital", "defining-your-market", "our-investment-in-slintel", "our-investment-in-uni", "saas-playbook-sales"];
 
 export function loader({ params }: Route.LoaderArgs) {
     if (!params.slug || !ALLOWED_SLUGS.includes(params.slug)) {
-        return redirect("/blog/example1");
+        return redirect("/blog/a-career-in-venture-capital");
     }
     return null;
 }
