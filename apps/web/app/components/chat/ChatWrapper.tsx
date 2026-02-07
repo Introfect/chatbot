@@ -12,6 +12,7 @@ export default function ChatWrapper({
   messages,
   status,
   sendMessageFromHook,
+  error,
 }: ChatProps) {
   const showEmptyState = messages.length === 0;
 
@@ -40,6 +41,16 @@ export default function ChatWrapper({
           </div>
         ))}
         {showStandaloneLoader && <div className="max-w-4xl mx-auto px-4 w-full"><CustomLoader /></div>}
+        {error && (
+          <div className="max-w-4xl mx-auto px-4 w-full mt-4">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
+              <div className="flex-1">
+                <p className="text-sm text-red-800 font-medium">Something went wrong</p>
+                <p className="text-sm text-red-600 mt-1">Try sending your message again.</p>
+              </div>
+            </div>
+          </div>
+        )}
       </ConversationContent>
       <ConversationScrollButton />
     </>
