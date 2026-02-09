@@ -1,3 +1,4 @@
+import "../utils/instrumentation";
 import { convertToModelMessages, smoothStream, streamText, UIMessage, stepCountIs } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { ERROR_MESSAGES } from "../../constants/errorCodes";
@@ -43,7 +44,7 @@ chatRoute.post('/chat', async (c) => {
       }),
       stopWhen: stepCountIs(5),
       tools: {
-        blog_search: blogSearchToolBuilder(c.env.FRONTEND_APP_URL),
+        blog_search: blogSearchToolBuilder(),
       },
     });
 

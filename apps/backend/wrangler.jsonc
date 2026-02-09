@@ -10,6 +10,7 @@
     "GOOGLE_AI_API_KEY": "AIzaSyAkSISZ07Rb6ylrso2vN5QwPtds5AHINqs",
     "FRONTEND_APP_URL": "http://localhost:5173"
   },
+  "assets": {  "directory": "./public/",  "binding": "ASSETS" }
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",

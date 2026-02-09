@@ -2,7 +2,7 @@ import { Tool, tool } from "ai";
 import parseMD from "parse-md";
 import z from "zod";
 
-export const blogSearchToolBuilder = (frontendAppUrl: string): Tool => {
+export const blogSearchToolBuilder = (): Tool => {
     return tool({
         description: "Get content of the blog post the user is asking about",
         inputSchema: z.object({
@@ -13,7 +13,7 @@ export const blogSearchToolBuilder = (frontendAppUrl: string): Tool => {
                 console.log({
                     msg: "FETCHING BLOG POST"
                 });
-                const data = await fetch(`${frontendAppUrl}/seedtoscale-blogs/${slug}.md`).then(async res => {
+                const data = await fetch(`/seedtoscale-blogs/${slug}.md`).then(async res => {
                     if (!res.ok) {
                         throw new Error(`Failed to fetch blog post: ${res.statusText}`);
                     }

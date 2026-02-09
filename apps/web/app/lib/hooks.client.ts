@@ -4,18 +4,12 @@ import { useCallback, useEffect, useState } from "react"
 import type { ChatProps } from "./types"
 import { BACKEND_BASE_URL } from "./constants"
 
-/**
- * Returns the pixel offset needed to keep fixed-bottom elements
- * visible above the mobile virtual keyboard.
- */
 export function useKeyboardOffset() {
     const [offset, setOffset] = useState(0)
 
     const update = useCallback(() => {
         const vv = window.visualViewport
         if (!vv) return
-        // The keyboard height is the difference between the layout viewport
-        // and the visual viewport, minus any scroll offset of the viewport itself.
         const keyboardHeight = window.innerHeight - vv.height - vv.offsetTop
         setOffset(Math.max(0, keyboardHeight))
     }, [])
@@ -46,7 +40,7 @@ export const useChatHook = (model: string): ChatProps => {
     const { messages, sendMessage, status, error, clearError } = useChat({
         transport: new DefaultChatTransport({
             api: BACKEND_BASE_URL,
-            body: { model, slug: extractSlugFromPath() },
+            body: { model, slug: "saas-playbook-sales" },
         })
     })
 
