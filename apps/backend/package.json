@@ -13,6 +13,7 @@
     "@langfuse/otel": "^4.5.1",
     "@langfuse/tracing": "^4.5.1",
     "@opentelemetry/sdk-node": "^0.211.0",
+    "@opentelemetry/sdk-trace-node": "^2.5.0",
     "@scalar/hono-api-reference": "^0.9.37",
     "ai": "^6.0.57",
     "dotenv": "^17.2.3",
