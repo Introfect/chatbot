@@ -1,8 +1,10 @@
-// import { NodeSDK } from "@opentelemetry/sdk-node";
-// import { LangfuseSpanProcessor } from "@langfuse/otel";
+import { LangfuseSpanProcessor, type ShouldExportSpan } from "@langfuse/otel";
+import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node";
 
-// const sdk = new NodeSDK({
-//     spanProcessors: [new LangfuseSpanProcessor()],
-// });
+export const spanProcessor = new LangfuseSpanProcessor({});
 
-// sdk.start();
+const tracerProvider = new NodeTracerProvider({
+    spanProcessors: [spanProcessor],
+});
+
+tracerProvider.register();
