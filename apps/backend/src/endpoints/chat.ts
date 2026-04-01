@@ -4,12 +4,20 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { ERROR_MESSAGES } from "../../constants/errorCodes";
 import { getHono } from "../utils/hono";
 import blogSearchToolBuilder from "../features/blogSearchTool";
-import { getSystemPrompt } from "../utils/utils";
+import { getSystemPrompt, getUserMessage } from "../utils/utils";
+import { trace } from "@opentelemetry/api";
+import {
+  observe,
+  updateActiveObservation,
+  updateActiveTrace,
+} from "@langfuse/tracing";
+import { waitUntil } from "cloudflare:workers";
+import { spanProcessor } from "../utils/instrumentation";
 
 export const chatRoute = getHono()
 
 
-chatRoute.post('/chat', async (c) => {
+chatRoute.post('/chat', observe(async (c) => {
   try {
     const google = createGoogleGenerativeAI({
       apiKey: c.env.GOOGLE_AI_API_KEY,
@@ -25,19 +33,38 @@ chatRoute.post('/chat', async (c) => {
       model: string;
       slug: string | null;
     } = await c.req.json();
-    console.log("messages", messages);
-    console.log("model", model);
-    console.log("slug", slug);
+
+    const modelMessages = await convertToModelMessages(messages);
+
+    const lastMessage = modelMessages.at(-1);
+
+    if (!lastMessage) {
+      throw new Error("User message is required");
+    }
 
     if (!model) {
       return c.json({ ok: false, error: "Model is required" }, 400);
     }
 
-    const message = streamText({
+    const userMessage = getUserMessage(lastMessage);
+    updateActiveObservation({
+      input: userMessage,
+    });
 
+    updateActiveTrace({
+      metadata: {
+        slug,
+      },
+      input: lastMessage.content,
+    });
+
+
+    const systemPrompt = getSystemPrompt({ slug });
+
+    const message = streamText({
       model: google(model),
-      messages: await convertToModelMessages(messages),
-      system: getSystemPrompt({ slug }),
+      messages: modelMessages,
+      system: systemPrompt,
       experimental_transform: smoothStream({
         delayInMs: 40,
         chunking: 'word',
@@ -45,6 +72,22 @@ chatRoute.post('/chat', async (c) => {
       stopWhen: stepCountIs(5),
       tools: {
         blog_search: blogSearchToolBuilder(),
+      },
+      experimental_telemetry: { isEnabled: true },
+
+      onFinish: async (result) => {
+        updateActiveObservation({
+          output: result.content,
+        });
+        updateActiveTrace({
+          metadata: {
+            slug,
+          },
+          output: result.content,
+        });
+        // End span manually after stream has finished
+        trace.getActiveSpan()?.end();
+        waitUntil(spanProcessor.forceFlush());
       },
     });
 
@@ -57,6 +100,6 @@ chatRoute.post('/chat', async (c) => {
   catch (error) {
     return c.json({ ok: false, error: error instanceof Error ? error.message : "An unknown error occurred", errorMessage: ERROR_MESSAGES.INTERNAL_SERVER_ERROR }, 500);
   }
-})
+}, { name: "chat-handler", endOnExit: false }))
 
 

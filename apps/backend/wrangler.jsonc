@@ -7,8 +7,9 @@
     "nodejs_compat"
   ],
   "vars": {
-    "GOOGLE_AI_API_KEY": "AIzaSyAkSISZ07Rb6ylrso2vN5QwPtds5AHINqs",
-    "FRONTEND_APP_URL": "http://localhost:5173"
+    "GOOGLE_AI_API_KEY": "AIzaSyCJqTEVkP50H03M8fpFw1u8MH0kjYlSFXo",
+    "FRONTEND_APP_URL": "http://localhost:5173",
+    "LANGFUSE_BASE_URL": "https://cloud.langfuse.com"
   },
   "assets": {  "directory": "./public/",  "binding": "ASSETS" }
   // "kv_namespaces": [
